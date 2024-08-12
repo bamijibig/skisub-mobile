@@ -46,7 +46,7 @@ class BookCheckoutPage extends StatelessWidget {
               child: Text('Book and Pay Now'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 50),
-                primary: Colors.blue[800],
+                // primary: Colors.blue[800],
               ),
             ),
           ],

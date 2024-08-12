@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:skisubapp/carbooking.dart';
 import 'package:skisubapp/carscreen.dart';
+import 'package:skisubapp/homescreen.dart';
 
 class SignupPage extends StatelessWidget {
   final TextEditingController _fullNameController = TextEditingController();
@@ -75,7 +76,7 @@ class SignupPage extends StatelessWidget {
                   child: Text('Sign Up'),
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity, 50),
-                    primary: Colors.blue[800],
+                    // primary: Colors.blue[800],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -187,7 +188,7 @@ class SignupPage extends StatelessWidget {
           SnackBar(content: Text('Signup successful!')),
         );
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => CarBookingPage()),
+          MaterialPageRoute(builder: (context) => Homescreen()),
         );
       }
     } catch (error) {

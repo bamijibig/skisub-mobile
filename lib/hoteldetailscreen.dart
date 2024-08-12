@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:skisubapp/hotel.dart'; // Import your Hotel model
 
 class HotelDetailsScreen extends StatelessWidget {
+  final Hotel hotel;
+
+  HotelDetailsScreen({required this.hotel});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,11 +14,16 @@ class HotelDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        title: Text(
+          'Hotel Details',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -20,46 +31,66 @@ class HotelDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Hotel Image
-              Image.network(
-                'https://via.placeholder.com/600x300', // Placeholder image URL
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
+              // Carousel Slider for Hotel Images
+              CarouselSlider(
+                items: hotel.images
+                    .map((img) => Image.network(img.image, fit: BoxFit.cover)) // Accessing image URL
+                    .toList(),
+                options: CarouselOptions(
+                  height: 200,
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                ),
               ),
               SizedBox(height: 20),
               // Hotel Name
               Text(
-                'Terraform Hotel',
+                hotel.name,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              // Information
+              // Hotel Location
               Text(
-                'Information about Terraform Hotel',
+                hotel.location,
+                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              ),
+              SizedBox(height: 20),
+              // Information Section
+              Text(
+                'Information',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Text(
-                'Terraform Hotel is a world-class deluxe hotel in Lagos Nigeria. The hotel is located at Victoria Island, Lagos. It is a luxurious place with a breathtaking view of the ocean.',
+                hotel.description,
                 style: TextStyle(color: Colors.grey[700]),
               ),
               SizedBox(height: 20),
-              // Amenities
+              // Amenities Section
               Text(
                 'Amenities',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Text(
-                'Free Wi-Fi, Swimming Pool, Bar, Restaurant, Fitness Center, Air Conditioning, 24-hour Security, Car Hire',
+                hotel.amenities.map((a) => a.name).join(', '), // Joining amenities names
                 style: TextStyle(color: Colors.grey[700]),
               ),
               SizedBox(height: 20),
-              // Terms and Conditions
+              // Room Types Section
+              Text(
+                'Room Types',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              _buildRoomTypesList(), // Building the Room Types List
+              SizedBox(height: 20),
+              // Terms and Conditions Section
               Text(
                 'Terms and Conditions',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -70,21 +101,48 @@ class HotelDetailsScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey[700]),
               ),
               SizedBox(height: 30),
-              // Rooms Button
+              // Book Now Button
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to Rooms screen
+                  // Navigate to booking screen or perform booking action
                 },
-                child: Text('Rooms'),
+                child: Text('Book Now'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50), // Full-width button
-                  primary: Colors.blue[800],
+                  iconColor: Colors.blue[800], // Button color
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // Function to build room types list
+  Widget _buildRoomTypesList() {
+    return Column(
+      children: hotel.roomTypes.map((roomType) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: ListTile(
+              leading: Icon(Icons.king_bed, color: Colors.blue[800]),
+              title: Text(
+                roomType.name, // Room type name
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                'Price: ${roomType.pricePerDay} NGN / Day\nAvailable: ${roomType.available ? 'Yes' : 'No'}',
+                style: TextStyle(color: Colors.grey[600]),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

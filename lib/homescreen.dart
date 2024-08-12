@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skisubapp/carscreen.dart';
 import 'package:skisubapp/dashboard.dart';
 import 'package:skisubapp/signup.dart';
@@ -44,13 +45,10 @@ class Homescreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
               SizedBox(height: 30),
-              // Email Field
               _inputField('Email', _emailController, isEmail: true),
               SizedBox(height: 20),
-              // Password Field
               _inputField('Password', _passwordController, isPassword: true),
               SizedBox(height: 10),
-              // Forgot Password Link
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
@@ -64,29 +62,24 @@ class Homescreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              // Sign In Button
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, proceed with login
                     _login(context);
                   }
                 },
                 child: Text('Sign In'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
-                  primary: Colors.blue[800],
                 ),
               ),
-              SizedBox(height: 20),
-              // Sign Up Link
+              Spacer(),
               Align(
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => SignupPage()));
-                    // Navigate to Sign Up Page
                   },
                   child: RichText(
                     text: TextSpan(
@@ -152,10 +145,7 @@ class Homescreen extends StatelessWidget {
     };
 
     try {
-      // Create Dio instance
       final dio = Dio();
-
-      // Make a POST request using Dio
       final response = await dio.post(
         'http://skis.eu-west-1.elasticbeanstalk.com/account/login/',
         data: loginPayload,
@@ -166,17 +156,25 @@ class Homescreen extends StatelessWidget {
         ),
       );
 
-      // Handle success response
       if (response.statusCode == 200) {
+        final data = response.data;
+        final token = data['token'];
+        final userId = data['data']['id'];
+
+        // Store token and user ID in SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('auth_token', token);
+        await prefs.setInt('user_id', userId);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login successful!')),
         );
+
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => CarBookingPage()),
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
         );
       }
     } on DioError catch (error) {
-      // Log the response from the server
       if (error.response != null) {
         print('Error: ${error.response!.data}');
         ScaffoldMessenger.of(context).showSnackBar(
@@ -191,7 +189,6 @@ class Homescreen extends StatelessWidget {
         );
       }
     } catch (error) {
-      // Handle other errors
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An unexpected error occurred: $error')),
       );

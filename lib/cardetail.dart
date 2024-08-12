@@ -74,7 +74,7 @@ class CarDetailsPage extends StatelessWidget {
                 child: Text('Continue'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
-                  primary: Colors.blue[800],
+                  // primary: Colors.blue[800],
                 ),
               ),
             ],

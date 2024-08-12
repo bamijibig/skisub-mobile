@@ -89,6 +89,10 @@ class _CarBookingPageState extends State<CarBookingPage> {
                   SizedBox(height: 20),
                   Container(
                     height: 50,
+                    color: Colors.white,
+                    // decoration: BoxDecoration(
+                    //   borderRadius: ,
+                    // ),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -99,7 +103,7 @@ class _CarBookingPageState extends State<CarBookingPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 15),
                   Expanded(
                     child: GridView.builder(
                       itemCount: cars.length,
@@ -111,7 +115,8 @@ class _CarBookingPageState extends State<CarBookingPage> {
                       ),
                       itemBuilder: (context, index) {
                         final car = cars[index];
-                        return GestureDetector(
+                        return 
+                        GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
@@ -135,23 +140,49 @@ class _CarBookingPageState extends State<CarBookingPage> {
     );
   }
 
+  // Widget _carTypeWidget(String name, bool isSelected, ) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  //     child: GestureDetector(
+  //       onTap: () {
+  //         // Handle car type selection
+  //       },
+  //       child: Chip(
+  //         label: Text(name),
+  //         backgroundColor: isSelected ? Colors.blue[800] : Colors.grey[300],
+  //         labelStyle: TextStyle(
+  //           color: isSelected ? Colors.white : Colors.black,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
   Widget _carTypeWidget(String name, bool isSelected) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: GestureDetector(
-        onTap: () {
-          // Handle car type selection
-        },
-        child: Chip(
-          label: Text(name),
-          backgroundColor: isSelected ? Colors.blue[800] : Colors.grey[300],
-          labelStyle: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
+  // Define the icon you want to use for the Chip
+  IconData icon = isSelected ? Icons.check_circle : Icons.radio_button_unchecked;
+
+  // Return a Padding widget with a GestureDetector for the Chip
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    child: GestureDetector(
+      onTap: () {
+        // Handle car type selection
+        // You can add logic here to toggle selection or perform other actions
+      },
+      child: Chip(
+        avatar: Icon(
+          icon, 
+          color: isSelected ? Colors.white : Colors.black, // Icon color based on selection
+        ),
+        label: Text(name), // Display car type name
+        backgroundColor: isSelected ? Colors.blue[800] : Colors.grey[300], // Background color based on selection
+        labelStyle: TextStyle(
+          color: isSelected ? Colors.white : Colors.black, // Text color based on selection
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _carCard({required String image, required String name, required String price}) {
     return Card(
