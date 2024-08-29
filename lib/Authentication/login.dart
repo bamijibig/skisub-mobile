@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skisubapp/carscreen.dart';
+// import 'package:skisubapp/carscreen.dart';
 import 'package:skisubapp/dashboard.dart';
-import 'package:skisubapp/signup.dart';
+import 'package:skisubapp/home_screen.dart';
+import 'package:skisubapp/Authentication/signup.dart';
 
 class Homescreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -68,8 +69,13 @@ class Homescreen extends StatelessWidget {
                     _login(context);
                   }
                 },
-                child: Text('Sign In'),
+                child: Text('Sign In',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor:  Color.fromRGBO(16, 0, 199, 1),
                   minimumSize: Size(double.infinity, 50),
                 ),
               ),
@@ -171,7 +177,7 @@ class Homescreen extends StatelessWidget {
         );
 
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          MaterialPageRoute(builder: (context) => HomeView()),
         );
       }
     } on DioError catch (error) {

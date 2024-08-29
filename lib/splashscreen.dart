@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skisubapp/homescreen.dart';
+import 'package:skisubapp/Authentication/login.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   
@@ -25,16 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
         color: Colors.white,
-        child: Column(
-          children: [
-            Image.asset('assets/images/splashimage.png',
-            width: 300,
-            ),
-            const Text('skisub',
-            style: TextStyle(
-              color: Colors.black
-            ),)
-          ],
+        child: 
+        Center(
+          child: Image.asset('assets/images/splashimage.png',
+          width: 200,
+          height: 200,
+          ),
         ),
       ),
     );

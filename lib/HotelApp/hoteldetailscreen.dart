@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:skisubapp/hotel.dart'; // Import your Hotel model
+import 'package:skisubapp/HotelApp/HotelRoomDetail.dart';
+ // Import your HotelRoomDetailsScreen class
+import 'package:skisubapp/HotelApp/hotel.dart'; // Import your Hotel model
 
 class HotelDetailsScreen extends StatelessWidget {
   final Hotel hotel;
@@ -82,14 +84,8 @@ class HotelDetailsScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey[700]),
               ),
               SizedBox(height: 20),
-              // Room Types Section
-              Text(
-                'Room Types',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              _buildRoomTypesList(), // Building the Room Types List
-              SizedBox(height: 20),
+              
+             
               // Terms and Conditions Section
               Text(
                 'Terms and Conditions',
@@ -104,12 +100,18 @@ class HotelDetailsScreen extends StatelessWidget {
               // Book Now Button
               ElevatedButton(
                 onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HotelRoomDetailsScreen(hotel:hotel),
+                    ),
+                  );
                   // Navigate to booking screen or perform booking action
                 },
                 child: Text('Book Now'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50), // Full-width button
-                  iconColor: Colors.blue[800], // Button color
+                  // color: Colors.blue[800], // Button color
                 ),
               ),
             ],
@@ -120,29 +122,29 @@ class HotelDetailsScreen extends StatelessWidget {
   }
 
   // Function to build room types list
-  Widget _buildRoomTypesList() {
-    return Column(
-      children: hotel.roomTypes.map((roomType) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: ListTile(
-              leading: Icon(Icons.king_bed, color: Colors.blue[800]),
-              title: Text(
-                roomType.name, // Room type name
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                'Price: ${roomType.pricePerDay} NGN / Day\nAvailable: ${roomType.available ? 'Yes' : 'No'}',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
+  // Widget _buildRoomTypesList() {
+  //   return Column(
+  //     children: hotel.roomTypes.map((roomType) {
+  //       return Padding(
+  //         padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //         child: Card(
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(10.0),
+  //           ),
+  //           child: ListTile(
+  //             leading: Icon(Icons.king_bed, color: Colors.blue[800]),
+  //             title: Text(
+  //               roomType.name, // Room type name
+  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+  //             ),
+  //             subtitle: Text(
+  //               'Price: ${roomType.pricePerDay} NGN / Day\nAvailable: ${roomType.available ? 'Yes' : 'No'}',
+  //               style: TextStyle(color: Colors.grey[600]),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
 }

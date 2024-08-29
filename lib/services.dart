@@ -42,37 +42,14 @@ class _ServicesPageState extends State<ServicesPage> {
           crossAxisSpacing: 16.0,
           mainAxisSpacing: 16.0,
           children: <Widget>[
-            _buildServiceCard(Icons.phone, 'Airtime'),
-            _buildServiceCard(Icons.wifi, 'Data'),
+            // _buildServiceCard(Icons.phone, 'Airtime'),
+            // _buildServiceCard(Icons.wifi, 'Data'),
             _buildServiceCard(Icons.hotel, 'Book Hotel'),
             _buildServiceCard(Icons.directions_car, 'Car Rentals'),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Services',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-      ),
+      
     );
   }
 

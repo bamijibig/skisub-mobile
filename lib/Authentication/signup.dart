@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:skisubapp/carbooking.dart';
-import 'package:skisubapp/carscreen.dart';
-import 'package:skisubapp/homescreen.dart';
+import 'package:skisubapp/CarApp/carbooking.dart';
+import 'package:skisubapp/CarApp/carscreen.dart';
+import 'package:skisubapp/Authentication/login.dart';
 
 class SignupPage extends StatelessWidget {
   final TextEditingController _fullNameController = TextEditingController();
@@ -73,8 +73,13 @@ class SignupPage extends StatelessWidget {
                       _signup(context);
                     }
                   },
-                  child: Text('Sign Up'),
+                  child: Text('Sign Up',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),),
                   style: ElevatedButton.styleFrom(
+                    backgroundColor:  Color.fromRGBO(16, 0, 199, 1),
                     minimumSize: Size(double.infinity, 50),
                     // primary: Colors.blue[800],
                   ),
