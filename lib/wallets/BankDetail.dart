@@ -69,10 +69,34 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:skisubapp/model/signup_user.dart';
+import 'package:skisubapp/services/transaction_service.dart';
 
-class WalletScreen extends StatelessWidget {
-  const WalletScreen({super.key});
+class BankDetailsPage extends StatefulWidget {
+  const BankDetailsPage({super.key});
 
+  @override
+  State<BankDetailsPage> createState() => _BankDetailsPageState();
+}
+
+class _BankDetailsPageState extends State<BankDetailsPage> {
+  SignupUser? signupUser;
+  final TransactionService _transactionService = TransactionService();
+  // bool isLoading = true;
+  @override
+  void initState(){
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    SignupUser? userDetails = await _transactionService.fetchUserDetails();
+    setState( () {
+        signupUser = userDetails;
+      });
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +173,7 @@ class WalletScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Ski Sub',
+                          '${signupUser?.firstName} ${signupUser?.lastName}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -158,7 +182,7 @@ class WalletScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          '1304369349',
+                          '${signupUser?.accountNumber?? "Unavailability of Account"}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

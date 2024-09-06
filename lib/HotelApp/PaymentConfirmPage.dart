@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skisubapp/dashboard.dart';
 
 class HotelConfirmationPage extends StatelessWidget {
   @override
@@ -54,7 +55,10 @@ class HotelConfirmationPage extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Implement Home button action
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashboardScreen()));
                 },
                 child: Text(
                   'Home',
