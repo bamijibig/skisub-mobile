@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:skisubapp/carscreen.dart';
 import 'package:skisubapp/dashboard.dart';
 import 'package:skisubapp/home_screen.dart';
 import 'package:skisubapp/Authentication/signup.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
+  @override
+  _HomescreenState createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false; // Loading state
 
   @override
   Widget build(BuildContext context) {
@@ -29,84 +34,94 @@ class Homescreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Sign In 👋',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Welcome back, Log in to your account',
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              ),
-              SizedBox(height: 30),
-              _inputField('Email', _emailController, isEmail: true),
-              SizedBox(height: 20),
-              _inputField('Password', _passwordController, isPassword: true),
-              SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    // Navigate to Forgot Password Page
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Colors.blue, fontSize: 14),
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Sign In 👋',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _login(context);
-                  }
-                },
-                child: Text('Sign In',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:  Color.fromRGBO(16, 0, 199, 1),
-                  minimumSize: Size(double.infinity, 50),
-                ),
-              ),
-              Spacer(),
-              Align(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => SignupPage()));
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      text: "Don't have an account? ",
-                      style: TextStyle(color: Colors.black, fontSize: 14),
-                      children: [
-                        TextSpan(
-                          text: 'Sign Up',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                  SizedBox(height: 10),
+                  Text(
+                    'Welcome back, Log in to your account',
+                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                  ),
+                  SizedBox(height: 30),
+                  _inputField('Email', _emailController, isEmail: true),
+                  SizedBox(height: 20),
+                  _inputField('Password', _passwordController, isPassword: true),
+                  SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        // Navigate to Forgot Password Page
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.blue, fontSize: 14),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 30),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _login(context);
+                      }
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(16, 0, 199, 1),
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                  ),
+                  Spacer(),
+                  Align(
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => SignupPage()));
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          text: "Don't have an account? ",
+                          style: TextStyle(color: Colors.black, fontSize: 14),
+                          children: [
+                            TextSpan(
+                              text: 'Sign Up',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+          if (_isLoading)
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
       ),
     );
   }
@@ -149,6 +164,10 @@ class Homescreen extends StatelessWidget {
       'username': email,
       'password': password,
     };
+
+    setState(() {
+      _isLoading = true; // Show progress indicator
+    });
 
     try {
       final dio = Dio();
@@ -198,6 +217,10 @@ class Homescreen extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An unexpected error occurred: $error')),
       );
+    } finally {
+      setState(() {
+        _isLoading = false; // Hide progress indicator
+      });
     }
   }
 }

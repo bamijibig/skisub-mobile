@@ -4,7 +4,12 @@ import 'package:skisubapp/CarApp/carbooking.dart';
 import 'package:skisubapp/CarApp/carscreen.dart';
 import 'package:skisubapp/Authentication/login.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
@@ -12,6 +17,7 @@ class SignupPage extends StatelessWidget {
   final TextEditingController _confirmPasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false; // Loading state
 
   @override
   Widget build(BuildContext context) {
@@ -31,89 +37,88 @@ class SignupPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Get Started 👋',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Create an account so you can pay your bills and purchase top-ups faster',
-                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                ),
-                SizedBox(height: 30),
-                // Full Name Field
-                _inputField('Full Name', _fullNameController),
-                SizedBox(height: 20),
-                // Email Field
-                _inputField('Email', _emailController, isEmail: true),
-                SizedBox(height: 20),
-                // Phone Number Field
-                _inputField('Phone Number', _phoneNumberController),
-                SizedBox(height: 20),
-                // Password Field
-                _inputField('Password', _passwordController, isPassword: true),
-                SizedBox(height: 20),
-                // Confirm Password Field
-                _inputField('Confirm Password', _confirmPasswordController,
-                    isPassword: true),
-                SizedBox(height: 30),
-                // Sign Up Button
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // If the form is valid, proceed with signup
-                      _signup(context);
-                    }
-                  },
-                  child: Text('Sign Up',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                  ),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:  Color.fromRGBO(16, 0, 199, 1),
-                    minimumSize: Size(double.infinity, 50),
-                    // primary: Colors.blue[800],
-                  ),
-                ),
-                SizedBox(height: 20),
-                // Login Link
-                Align(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    onTap: () {
-                      // Navigate to Login Page
-                      Navigator.of(context).pop();
-                    },
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Have an account? ',
-                        style: TextStyle(color: Colors.black, fontSize: 14),
-                        children: [
-                          TextSpan(
-                            text: 'Login Here',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Get Started 👋',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Create an account so you can pay your bills and purchase top-ups faster',
+                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    ),
+                    SizedBox(height: 30),
+                    _inputField('Full Name', _fullNameController),
+                    SizedBox(height: 20),
+                    _inputField('Email', _emailController, isEmail: true),
+                    SizedBox(height: 20),
+                    _inputField('Phone Number', _phoneNumberController),
+                    SizedBox(height: 20),
+                    _inputField('Password', _passwordController, isPassword: true),
+                    SizedBox(height: 20),
+                    _inputField('Confirm Password', _confirmPasswordController, isPassword: true),
+                    SizedBox(height: 30),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _signup(context);
+                        }
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(16, 0, 199, 1),
+                        minimumSize: Size(double.infinity, 50),
                       ),
                     ),
-                  ),
+                    SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Have an account? ',
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                            children: [
+                              TextSpan(
+                                text: 'Login Here',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+          if (_isLoading)
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
       ),
     );
   }
@@ -132,9 +137,7 @@ class SignupPage extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.grey[200],
-        suffixIcon: isPassword
-            ? Icon(Icons.visibility_off, color: Colors.grey)
-            : null,
+        suffixIcon: isPassword ? Icon(Icons.visibility_off, color: Colors.grey) : null,
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -143,8 +146,7 @@ class SignupPage extends StatelessWidget {
         if (isEmail && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
           return 'Please enter a valid email';
         }
-        if (hint == 'Confirm Password' &&
-            value != _passwordController.text) {
+        if (hint == 'Confirm Password' && value != _passwordController.text) {
           return 'Passwords do not match';
         }
         return null;
@@ -169,14 +171,17 @@ class SignupPage extends StatelessWidget {
       email: email,
       password: password,
       password2: confirmPassword,
-      username: email, // You can change this if needed
+      username: email,
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
     );
 
+    setState(() {
+      _isLoading = true; // Show progress indicator
+    });
+
     try {
-      // Make a POST request using Dio
       final response = await Dio().post(
         'http://skis.eu-west-1.elasticbeanstalk.com/account/signup/',
         data: user.toJson(),
@@ -187,7 +192,6 @@ class SignupPage extends StatelessWidget {
         ),
       );
 
-      // Handle success response
       if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Signup successful!')),
@@ -197,10 +201,13 @@ class SignupPage extends StatelessWidget {
         );
       }
     } catch (error) {
-      // Handle error response
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Signup failed: $error')),
       );
+    } finally {
+      setState(() {
+        _isLoading = false; // Hide progress indicator
+      });
     }
   }
 }

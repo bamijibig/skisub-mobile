@@ -1,3 +1,45 @@
+// class Hotel {
+//   final int id;
+//   final String name;
+//   final String description;
+//   final String location;
+//   final List<Amenity> amenities;
+//   final List<HotelImage> images;
+//   final List<RoomType> roomTypes;
+
+//   var rating;
+
+//   Hotel({
+//     required this.id,
+//     required this.name,
+//     required this.description,
+//     required this.location,
+//     required this.amenities,
+//     required this.images,
+//     required this.roomTypes,
+//   });
+
+//   factory Hotel.fromJson(Map<String, dynamic> json) {
+//     return Hotel(
+//       id: json['id'] ?? 0,
+//       name: json['name'] ?? 'No Name',
+//       description: json['description'] ?? 'No Description',
+//       location: json['location'] ?? 'No Location',
+//       amenities: (json['amenities'] as List<dynamic>?)
+//               ?.map((amenityJson) => Amenity.fromJson(amenityJson))
+//               .toList() ??
+//           [],
+//       images: (json['images'] as List<dynamic>?)
+//               ?.map((imageJson) => HotelImage.fromJson(imageJson))
+//               .toList() ??
+//           [],
+//       roomTypes: (json['room_types'] as List<dynamic>?)
+//               ?.map((roomTypeJson) => RoomType.fromJson(roomTypeJson))
+//               .toList() ??
+//           [],
+//     );
+//   }
+// }
 class Hotel {
   final int id;
   final String name;
@@ -6,6 +48,7 @@ class Hotel {
   final List<Amenity> amenities;
   final List<HotelImage> images;
   final List<RoomType> roomTypes;
+  final int rating; // Changed to int
 
   Hotel({
     required this.id,
@@ -15,6 +58,7 @@ class Hotel {
     required this.amenities,
     required this.images,
     required this.roomTypes,
+    this.rating = 0, // Default value
   });
 
   factory Hotel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +79,7 @@ class Hotel {
               ?.map((roomTypeJson) => RoomType.fromJson(roomTypeJson))
               .toList() ??
           [],
+      rating: json['rating']?.toInt() ?? 0, // Handle rating
     );
   }
 }
