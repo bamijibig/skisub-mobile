@@ -213,8 +213,9 @@ class HotelBookingPreviewPage extends StatelessWidget {
                  _confirmhotelBooking(context);
               },
               style: ElevatedButton.styleFrom(
+                
+                backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                 minimumSize: Size(double.infinity, 50),
-                backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

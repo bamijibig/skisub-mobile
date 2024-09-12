@@ -43,10 +43,16 @@ class BookCheckoutPage extends StatelessWidget {
               onPressed: () {
                 // Handle payment and booking
               },
-              child: Text('Book and Pay Now'),
+              child: Text('Book and Pay Now',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),),
               style: ElevatedButton.styleFrom(
+                
+                backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                 minimumSize: Size(double.infinity, 50),
-                // primary: Colors.blue[800],
+                
               ),
             ),
           ],

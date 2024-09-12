@@ -1,72 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-
-// class BankDetailsPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Bank Details'),
-//         leading: IconButton(
-//           icon: Icon(Icons.arrow_back),
-//           onPressed: () {
-//             Navigator.pop(context);
-//           },
-//         ),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Container(
-//           padding: EdgeInsets.all(16),
-//           decoration: BoxDecoration(
-//             color: Colors.blue,
-//             borderRadius: BorderRadius.circular(12),
-//           ),
-//           child: Row(
-//             children: [
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     'Ski Sub',
-//                     style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.bold),
-//                   ),
-//                   SizedBox(height: 8),
-//                   Text(
-//                     '1304369349',
-//                     style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.bold),
-//                   ),
-//                   SizedBox(height: 8),
-//                   Text(
-//                     'Providus Bank',
-//                     style: TextStyle(color: Colors.white),
-//                   ),
-//                 ],
-//               ),
-//               Spacer(),
-//               IconButton(
-//                 icon: Icon(Icons.copy, color: Colors.white),
-//                 onPressed: () {
-//                   // Implement copy functionality
-//                   Clipboard.setData(ClipboardData(text: "1304369349"));
-//                   ScaffoldMessenger.of(context).showSnackBar(
-//                     SnackBar(content: Text("Account number copied!")),
-//                   );
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 import 'package:flutter/material.dart';
 import 'package:skisubapp/model/signup_user.dart';
@@ -122,7 +53,7 @@ class _BankDetailsPageState extends State<BankDetailsPage> {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromRGBO(16, 0, 199, 1),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
@@ -163,7 +94,7 @@ class _BankDetailsPageState extends State<BankDetailsPage> {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromRGBO(16, 0, 199, 1),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(

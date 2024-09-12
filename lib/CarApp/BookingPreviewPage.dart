@@ -179,8 +179,14 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
                         onPressed: () {
                           _confirmBooking(context);
                         },
-                        child: Text('Book and Pay Now'),
+                        child: Text('Book and Pay Now',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        ),),
                         style: ElevatedButton.styleFrom(
+                          
+                          backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                           minimumSize: Size(double.infinity, 50),
                         ),
                       ),

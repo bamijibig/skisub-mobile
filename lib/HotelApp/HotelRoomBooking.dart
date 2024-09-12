@@ -175,10 +175,11 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
                   children: [
                     Text(
                       'Book Your Stay',
+
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: Color.fromRGBO(16, 0, 199, 1)
                       ),
                     ),
                     SizedBox(height: 24),
@@ -323,8 +324,13 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
                     Center(
                       child: ElevatedButton(
                         onPressed: _submitBooking,
-                        child: Text('Continue'),
+                        child: Text('Continue',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        ),),
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),

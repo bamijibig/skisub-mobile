@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skisubapp/dashboard.dart';
+import 'package:skisubapp/home_screen.dart';
 
 class BookingCompletePage extends StatelessWidget {
   @override
@@ -30,10 +31,16 @@ class BookingCompletePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DashboardScreen())); // Go back to the previous screen
+                MaterialPageRoute(builder: (context) => HomeView())); // Go back to the previous screen
               },
-              child: Text('Done'),
+              child: Text('Done',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),),
               style: ElevatedButton.styleFrom(
+                
+                backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                 minimumSize: Size(double.infinity, 50),
               ),
             ),

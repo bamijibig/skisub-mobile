@@ -108,8 +108,14 @@ class HotelDetailsScreen extends StatelessWidget {
                   );
                   // Navigate to booking screen or perform booking action
                 },
-                child: Text('Book Now'),
+                child: Text('Book Now',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+                ),),
                 style: ElevatedButton.styleFrom(
+                  
+                  backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                   minimumSize: Size(double.infinity, 50), // Full-width button
                   // color: Colors.blue[800], // Button color
                 ),
@@ -121,30 +127,5 @@ class HotelDetailsScreen extends StatelessWidget {
     );
   }
 
-  // Function to build room types list
-  // Widget _buildRoomTypesList() {
-  //   return Column(
-  //     children: hotel.roomTypes.map((roomType) {
-  //       return Padding(
-  //         padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //         child: Card(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(10.0),
-  //           ),
-  //           child: ListTile(
-  //             leading: Icon(Icons.king_bed, color: Colors.blue[800]),
-  //             title: Text(
-  //               roomType.name, // Room type name
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-  //             ),
-  //             subtitle: Text(
-  //               'Price: ${roomType.pricePerDay} NGN / Day\nAvailable: ${roomType.available ? 'Yes' : 'No'}',
-  //               style: TextStyle(color: Colors.grey[600]),
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     }).toList(),
-  //   );
-  // }
+ 
 }

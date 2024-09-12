@@ -47,6 +47,8 @@ class HotelConfirmationPage extends StatelessWidget {
               // Home button
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                 
+                  backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                   // primary: Colors.blue,
                   padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
                   shape: RoundedRectangleBorder(

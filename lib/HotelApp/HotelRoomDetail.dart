@@ -115,11 +115,18 @@ class HotelRoomDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(16, 0, 199, 1)),
                               onPressed: () {
                                 Navigator.push(context, 
                                 MaterialPageRoute(builder: (context)=>HotelBookingScreen(hotel: hotel, roomType: roomType)));
                               },
-                              child: Text('Book Now'),
+                              
+                              child: Text('Book Now',
+                              style: TextStyle(
+                                color:Colors.white,
+                                fontWeight: FontWeight.bold
+                              ),),
                             ),
                           ],
                         ),

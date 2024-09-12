@@ -111,8 +111,14 @@ class _CarRentalsBookingPageState extends State<CarRentalsBookingPage> {
                   driverAgeController: _driverAgeController,
                 );
               },
-              child: Text('Book'),
+              child: Text('Book',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),),
               style: ElevatedButton.styleFrom(
+                
+                backgroundColor: Color.fromRGBO(16, 0, 199, 1),
                 minimumSize: Size(double.infinity, 50),
               ),
             ),

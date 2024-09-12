@@ -65,7 +65,7 @@ class _HomescreenState extends State<Homescreen> {
                       },
                       child: Text(
                         'Forgot Password?',
-                        style: TextStyle(color: Colors.blue, fontSize: 14),
+                        style: TextStyle(color: Color.fromRGBO(16, 0, 199, 1), fontSize: 14),
                       ),
                     ),
                   ),

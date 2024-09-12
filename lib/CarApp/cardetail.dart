@@ -126,8 +126,8 @@ class CarDetailsPage extends StatelessWidget {
               _carSpecsRow('Max Power', '${car.maxPowerHp}','hp'),
               SizedBox(height: 5,),
               _carSpecsRow('Top Speed', '${car.topSpeedMph}','mph'),
-              // SizedBox(height: 5,),
-              _carSpecsRow('Top Speed', '${car.topSpeedMph}','mph'),
+              
+              
                 ],
               ),
               
