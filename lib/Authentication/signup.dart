@@ -25,12 +25,13 @@ class _SignupPageState extends State<SignupPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
+        automaticallyImplyLeading: false,
         title: Text(
           'Register',
           style: TextStyle(color: Colors.black),
@@ -183,7 +184,7 @@ class _SignupPageState extends State<SignupPage> {
 
     try {
       final response = await Dio().post(
-        'http://skis.eu-west-1.elasticbeanstalk.com/account/signup/',
+        'https://skissub.pythonanywhere.com/account/signup/',
         data: user.toJson(),
         options: Options(
           headers: {

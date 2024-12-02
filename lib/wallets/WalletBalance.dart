@@ -63,10 +63,11 @@ class _WalletScreenState extends State<WalletScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () => Navigator.of(context).pop(),
+        // ),
+        automaticallyImplyLeading: false,
         title: Text(
           'Wallet',
           style: TextStyle(color: Colors.black),

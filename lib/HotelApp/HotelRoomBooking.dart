@@ -86,7 +86,7 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
     };
 
     final dio = Dio();
-    final String apiUrl = 'http://skis.eu-west-1.elasticbeanstalk.com/hotelad/api/hotelbooking/';
+    final String apiUrl = 'https://skissub.pythonanywhere.com/hotelad/api/hotelbooking/';
 
     try {
       final response = await dio.post(

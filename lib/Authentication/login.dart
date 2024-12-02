@@ -22,12 +22,13 @@ class _HomescreenState extends State<Homescreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
+        automaticallyImplyLeading: false,
         title: Text(
           'Login',
           style: TextStyle(color: Colors.black),
@@ -172,7 +173,7 @@ class _HomescreenState extends State<Homescreen> {
     try {
       final dio = Dio();
       final response = await dio.post(
-        'http://skis.eu-west-1.elasticbeanstalk.com/account/login/',
+        'https://skissub.pythonanywhere.com/account/login/',
         data: loginPayload,
         options: Options(
           headers: {

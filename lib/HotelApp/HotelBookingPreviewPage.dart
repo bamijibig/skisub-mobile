@@ -29,7 +29,7 @@ class HotelBookingPreviewPage extends StatelessWidget {
 
  Future<void> _confirmhotelBooking(BuildContext context) async {
     final dio = Dio();
-    final String apiUrl = 'http://skis.eu-west-1.elasticbeanstalk.com/hotelad/api/orders/';
+    final String apiUrl = 'https://skissub.pythonanywhere.com/hotelad/api/orders/';
 
     try {
       final prefs = await SharedPreferences.getInstance();

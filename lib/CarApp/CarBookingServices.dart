@@ -8,7 +8,7 @@ import 'package:skisubapp/CarApp/BookingPreviewPage.dart';
 
 class CarBookServices {
   final String apiUrl =
-      'http://skis.eu-west-1.elasticbeanstalk.com/car/api/bookings/';
+      'https://skissub.pythonanywhere.com/car/api/bookings/';
 
   // Format time to HH:mm
   String formatTime(String time) {

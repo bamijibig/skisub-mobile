@@ -27,7 +27,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
     final dio = Dio();
     try {
       final response = await dio.get(
-        'http://skis.eu-west-1.elasticbeanstalk.com/hotelad/api/hotels/',
+        'https://skissub.pythonanywhere.com/hotelad/api/hotels/',
         options: Options(
           headers: {'content-type': 'application/json'},
         ),
@@ -212,6 +212,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
       backgroundColor: Color.fromRGBO(243, 242, 242, 1),
       appBar: AppBar(
         title: Text('Hotels'),
+        leading: null,
         actions: [
           IconButton(
             icon: Icon(Icons.filter_list),
