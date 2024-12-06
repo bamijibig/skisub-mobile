@@ -33,7 +33,7 @@ class _CarBookingPageState extends State<CarBookingPage> {
       });
 
       final response = await dio.get(
-        'https://skissub.pythonanywhere.com/car/api/cars/',
+        'https://jpowered.pythonanywhere.com/car/api/cars/',
         queryParameters: {
           if (keyword != null) 'search': keyword,
           if (category != null) 'category': category,
@@ -174,6 +174,35 @@ class _CarBookingPageState extends State<CarBookingPage> {
               Text(price),
             ],
           ),
+          SizedBox(width: 5,),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CarDetailsPage(car: car),
+                                  ),
+              // Handle the "Book Now" action if needed
+          );},
+            style: ElevatedButton.styleFrom(
+              // primary: Colors.blue, // Blue background color
+              // onPrimary: Colors.white, // White text color
+              backgroundColor: Color.fromRGBO(16, 0, 199, 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5), // Rounded corners
+              ),
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12), // Padding for the button
+            ),
+            child: Text(
+              'Book Now',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14, // Adjust font size if needed
+                fontWeight: FontWeight.w500, // Adjust font weight if needed
+              ),
+            ),
+          ),
+
         ],
       ),
     );
@@ -280,6 +309,7 @@ class _CarBookingPageState extends State<CarBookingPage> {
                                   ),
                                 );
                               },
+                              
                               child: _carCard(
                                 car: car,
                                 image: car.images.first,
@@ -287,6 +317,8 @@ class _CarBookingPageState extends State<CarBookingPage> {
                                 year: 'Year: ${car.year}',
                                 price: '${car.pricePerDay} NGN / Day',
                               ),
+                              
+                              
                             );
                           },
                         ),

@@ -86,7 +86,7 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
     };
 
     final dio = Dio();
-    final String apiUrl = 'https://skissub.pythonanywhere.com/hotelad/api/hotelbooking/';
+    final String apiUrl = 'https://jpowered.pythonanywhere.com/hotelad/api/hotelbooking/';
 
     try {
       final response = await dio.post(
@@ -325,18 +325,16 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
                       child: ElevatedButton(
                         onPressed: _submitBooking,
                         child: Text('Continue',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                        ),),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(16, 0, 199, 1),
-                          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                            ),),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(16,0,199,1),
+                              minimumSize: Size(double.infinity, 50),
+                              // : Colors.blue[800],
+                            ),
                           ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

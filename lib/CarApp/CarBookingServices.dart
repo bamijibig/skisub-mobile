@@ -8,7 +8,7 @@ import 'package:skisubapp/CarApp/BookingPreviewPage.dart';
 
 class CarBookServices {
   final String apiUrl =
-      'https://skissub.pythonanywhere.com/car/api/bookings/';
+      'https://jpowered.pythonanywhere.com/car/api/bookings/';
 
   // Format time to HH:mm
   String formatTime(String time) {

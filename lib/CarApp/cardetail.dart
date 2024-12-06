@@ -56,11 +56,11 @@ class CarDetailsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                      
                     ),
-                    Icon(
-                      Icons.favorite,
-                      color: Colors.yellow,
+                    // Icon(
+                    //   Icons.favorite,
+                    //   color: Colors.yellow,
       
-                    )
+                    // )
                   ],
                 ),
                 SizedBox(height: 5,),
