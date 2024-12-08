@@ -101,7 +101,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 backgroundImage: AssetImage('assets/images/splashimage.png'),
               ),
               Text(
-                'Hello,\n ${signupUser?.firstName ?? "User"}',
+                'Hello,\n ${signupUser?.firstName}',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
