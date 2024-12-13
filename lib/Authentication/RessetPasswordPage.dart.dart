@@ -20,65 +20,105 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  Future<void> resetPassword(String newPassword) async {
-    final Dio dio = Dio();
-    const String endpoint = "http://127.0.0.1:8000/account/reset-password/";
+  // Future<void> resetPassword(String newPassword) async {
+  //   final Dio dio = Dio();
+  //   const String endpoint = "http://127.0.0.1:8000/account/reset-password/";
 
-    try {
-      Response response = await dio.post(
-        endpoint,
-        data: {
-          "uid": widget.uid,
-          "token": widget.token,
-          "new_password": newPassword,
-        },
-      );
+  //   try {
+  //     Response response = await dio.post(
+  //       endpoint,
+  //       data: {
+  //         "uid": widget.uid,
+  //         "token": widget.token,
+  //         "new_password": newPassword,
+  //       },
+  //     );
 
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Password reset successful.")),
-        );
-        Navigator.of(context).pop();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to reset password: ${response.data}")),
-        );
-      }
-    } on DioError catch (e) {
-      if (e.response != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Connection error: ${e.message}")),
-        );
-      }
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Password reset successful.")),
+  //       );
+  //       Navigator.of(context).pop();
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Failed to reset password: ${response.data}")),
+  //       );
+  //     }
+  //   } on DioError catch (e) {
+  //     if (e.response != null) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
+  //       );
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Connection error: ${e.message}")),
+  //       );
+  //     }
+  //   }
+  // }
+Future<void> resetPassword(String newPassword) async {
+  final Dio dio = Dio();
+  const String endpoint = "http://127.0.0.1:8000/account/reset-password/";
 
-  void _submit() async {
-    final newPassword = _passwordController.text.trim();
+  try {
+    Response response = await dio.post(
+      endpoint,
+      data: {
+        "uid": widget.uid, // Ensure widget.uid is not null
+        "token": widget.token, // Ensure widget.token is not null
+        "new_password": newPassword, // Ensure newPassword is not null
+      },
+    );
 
-    if (newPassword.isEmpty) {
+    if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter a new password")),
+        SnackBar(content: Text("Password reset successful.")),
       );
-      return;
+      Navigator.of(context).pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to reset password: ${response.data}")),
+      );
     }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      await resetPassword(newPassword);
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+  } on DioError catch (e) {
+    if (e.response != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Connection error: ${e.message}")),
+      );
     }
   }
+}
+
+
+ void _submit() async {
+  final newPassword = _passwordController.text.trim();
+
+  if (newPassword.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter a new password")),
+    );
+    return;
+  }
+
+  print('UID: ${widget.uid}, Token: ${widget.token}, New Password: $newPassword'); // Debug log
+
+  setState(() {
+    _isLoading = true;
+  });
+
+  try {
+    await resetPassword(newPassword);
+  } finally {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {

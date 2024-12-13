@@ -19,77 +19,138 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return regex.hasMatch(email);
   }
 
-  Future<void> sendPasswordResetEmail(String email) async {
-    final Dio dio = Dio();
-    const String endpoint = "https://skissub.pythonanywhere.com/account/forgot-password/";
+  // Future<void> sendPasswordResetEmail(String email) async {
+  //   final Dio dio = Dio();
+  //   const String endpoint = "https://skissub.pythonanywhere.com/account/forgot-password/";
 
-    try {
-      Response response = await dio.post(
-        endpoint,
-        data: {
-          "email": email,
-        },
+  //   try {
+  //     Response response = await dio.post(
+  //       endpoint,
+  //       data: {
+  //         "email": email,
+  //       },
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Password reset email sent successfully.")),
+  //       );
+
+  //       // Navigate to the Reset Password Page immediately
+  //       Navigator.of(context).push(
+  //         MaterialPageRoute(
+  //           builder: (context) => ResetPasswordPage(uid: '', token: '',), // No parameters needed
+  //         ),
+  //       );
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Failed to send reset email: ${response.data}")),
+  //       );
+  //     }
+  //   } on DioError catch (e) {
+  //     if (e.response != null) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
+  //       );
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Connection error: ${e.message}")),
+  //       );
+  //     }
+  //   }
+  // }
+Future<void> sendPasswordResetRequest(String email) async {
+  final Dio dio = Dio();
+  const String endpoint = "http://127.0.0.1:8000/account/forgot-password/";
+
+  try {
+    Response response = await dio.post(
+      endpoint,
+      data: {"email": email},
+    );
+
+    if (response.statusCode == 200) {
+      final uid = response.data['uid'];
+      final token = response.data['token'];
+
+      // Navigate to ResetPasswordPage with the UID and Token
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ResetPasswordPage(uid: uid, token: token),
+        ),
       );
-
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Password reset email sent successfully.")),
-        );
-
-        // Navigate to the Reset Password Page immediately
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ResetPasswordPage(uid: '', token: '',), // No parameters needed
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to send reset email: ${response.data}")),
-        );
-      }
-    } on DioError catch (e) {
-      if (e.response != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Connection error: ${e.message}")),
-        );
-      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to send reset request: ${response.data}")),
+      );
     }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error: ${e.toString()}")),
+    );
+  }
+}
+void _submit() async {
+  final email = _emailController.text.trim();
+
+  if (email.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter your email")),
+    );
+    return;
   }
 
-  void _submit() async {
-    final email = _emailController.text.trim();
+  if (!isValidEmail(email)) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter a valid email address")),
+    );
+    return;
+  }
 
-    // Validate the email format
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter your email")),
-      );
-      return;
-    }
+  setState(() {
+    _isLoading = true;
+  });
 
-    if (!isValidEmail(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter a valid email address")),
-      );
-      return;
-    }
-
+  try {
+    await sendPasswordResetRequest(email);
+  } finally {
     setState(() {
-      _isLoading = true;
+      _isLoading = false;
     });
-
-    try {
-      // await sendPasswordResetEmail(email);
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
+}
+
+
+  // void _submit() async {
+  //   final email = _emailController.text.trim();
+
+  //   // Validate the email format
+  //   if (email.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text("Please enter your email")),
+  //     );
+  //     return;
+  //   }
+
+  //   if (!isValidEmail(email)) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text("Please enter a valid email address")),
+  //     );
+  //     return;
+  //   }
+
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+
+  //   try {
+  //     // await sendPasswordResetEmail(email);
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
