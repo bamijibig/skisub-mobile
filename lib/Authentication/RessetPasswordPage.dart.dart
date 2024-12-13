@@ -22,7 +22,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Future<void> resetPassword(String newPassword) async {
     final Dio dio = Dio();
-    const String endpoint = "https://jpowered.pythonanywhere.com/account/reset-password/";
+    const String endpoint = "http://127.0.0.1:8000/account/reset-password/";
 
     try {
       Response response = await dio.post(

@@ -119,7 +119,7 @@
 // }
 
 // class _ProfilePageState extends State<ProfilePage> {
-//   final Dio _dio = Dio(BaseOptions(baseUrl: 'https://jpowered.pythonanywhere.com/account/'));
+//   final Dio _dio = Dio(BaseOptions(baseUrl: 'http://127.0.0.1:8000/account/'));
 //   String? photoUrl;
 //   String? name;
 //   String? email;
@@ -262,7 +262,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'https://jpowered.pythonanywhere.com/account/'));
+  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://127.0.0.1:8000/account/'));
   String? photoUrl;
   String? name;
   String? email;

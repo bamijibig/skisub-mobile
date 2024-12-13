@@ -178,7 +178,7 @@
 //   try {
 //     final dio = Dio();
 //     final response = await dio.post(
-//       'https://jpowered.pythonanywhere.com/account/login/',
+//       'http://127.0.0.1:8000/account/login/',
 //       data: loginPayload,
 //       options: Options(
 //         headers: {
@@ -421,7 +421,7 @@ class _HomescreenState extends State<Homescreen> {
     try {
       final dio = Dio();
       final response = await dio.post(
-        'https://jpowered.pythonanywhere.com/account/login/',
+        'http://127.0.0.1:8000/account/login/',
         data: loginPayload,
         options: Options(
           headers: {

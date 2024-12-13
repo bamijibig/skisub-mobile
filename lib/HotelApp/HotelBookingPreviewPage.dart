@@ -29,7 +29,7 @@ class HotelBookingPreviewPage extends StatelessWidget {
 
  Future<void> _confirmhotelBooking(BuildContext context) async {
     final dio = Dio();
-    final String apiUrl = 'https://jpowered.pythonanywhere.com/hotelad/api/orders/';
+    final String apiUrl = 'http://127.0.0.1:8000/hotelad/api/orders/';
 
     try {
       final prefs = await SharedPreferences.getInstance();
