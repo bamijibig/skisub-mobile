@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   dio: ^5.0.0
   image_picker: ^0.8.5+3
+  url_launcher: ^6.2.5
   # shared_preferences: ^2.0.12
   # flutter_secure_storage: ^8.0.0
 
@@ -76,6 +77,10 @@ flutter:
     - assets/images/png/
     - assets/images/svg/
     - assets/placeholder.png
+    - assets/icons/instagram.png
+    - assets/icons/whatsapp.png
+    - assets/icons/telegram.png
+    - assets/icons/chat_icon.png
 
   #   - images/a_dot_ham.jpeg
 

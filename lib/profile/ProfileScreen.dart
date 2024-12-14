@@ -227,6 +227,7 @@ import 'package:dio/dio.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skisubapp/Authentication/login.dart';
+import 'package:skisubapp/profile/HelpandSupportPage.dart';
 import 'package:skisubapp/profile/profileEditPage.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -464,6 +465,36 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       
+                    ),
+                  ),
+                  // Personal Information Section
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HelpAndSupportPage()),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: Colors.grey[300]!),
+                        ),
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.person, color: Colors.black),
+                          SizedBox(width: 16.0),
+                          Expanded(
+                            child: Text(
+                              'Help and Support',
+                              style: TextStyle(fontSize: 16.0, color: Colors.black),
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward_ios, color: Colors.black),
+                        ],
+                      ),
                     ),
                   ),
                 ],
