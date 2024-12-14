@@ -248,20 +248,20 @@ class _HotelListScreenState extends State<HotelListScreen> {
                   ),
                 ),
                 SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () => showFilterBottomSheet(context),
-                  child: Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(16, 0, 199, 1),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Icon(
-                      Icons.filter,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () => showFilterBottomSheet(context),
+                //   child: Container(
+                //     padding: EdgeInsets.all(12),
+                //     decoration: BoxDecoration(
+                //       color: Color.fromRGBO(16, 0, 199, 1),
+                //       borderRadius: BorderRadius.circular(15),
+                //     ),
+                //     child: Icon(
+                //       Icons.filter,
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             SizedBox(height: 15),
