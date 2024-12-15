@@ -20,45 +20,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  // Future<void> resetPassword(String newPassword) async {
-  //   final Dio dio = Dio();
-  //   const String endpoint = "http://127.0.0.1:8000/account/reset-password/";
 
-  //   try {
-  //     Response response = await dio.post(
-  //       endpoint,
-  //       data: {
-  //         "uid": widget.uid,
-  //         "token": widget.token,
-  //         "new_password": newPassword,
-  //       },
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Password reset successful.")),
-  //       );
-  //       Navigator.of(context).pop();
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Failed to reset password: ${response.data}")),
-  //       );
-  //     }
-  //   } on DioError catch (e) {
-  //     if (e.response != null) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
-  //       );
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Connection error: ${e.message}")),
-  //       );
-  //     }
-  //   }
-  // }
 Future<void> resetPassword(String newPassword) async {
   final Dio dio = Dio();
-  const String endpoint = "http://127.0.0.1:8000/account/reset-password/";
+  const String endpoint = "https://jpowered.pythonanywhere.com/account/reset-password/";
 
   try {
     Response response = await dio.post(
@@ -158,8 +123,17 @@ Future<void> resetPassword(String newPassword) async {
                 ? Center(child: CircularProgressIndicator())
                 : ElevatedButton(
                     onPressed: _submit,
-                    child: Text("Reset Password"),
-                  ),
+                    child: Text("Reset Password",
+                    style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        ),),
+                        style: ElevatedButton.styleFrom(
+                          
+                          backgroundColor: Color.fromRGBO(16, 0, 199, 1),
+                          minimumSize: Size(double.infinity, 50),
+                        ),),
+                  
           ],
         ),
       ),

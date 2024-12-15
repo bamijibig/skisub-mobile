@@ -86,7 +86,7 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
     };
 
     final dio = Dio();
-    final String apiUrl = 'http://127.0.0.1:8000/hotelad/api/hotelbooking/';
+    final String apiUrl = 'https://jpowered.pythonanywhere.com/hotelad/api/hotelbooking/';
 
     try {
       final response = await dio.post(
@@ -125,12 +125,12 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('An error occurred.')),
+          SnackBar(content: Text('please fund wallet, insufficient fund.')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An unexpected error occurred.')),
+        SnackBar(content: Text('please fund wallet, insufficient fund.')),
       );
     }
   }

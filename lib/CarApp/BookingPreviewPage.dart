@@ -25,7 +25,7 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
 
   Future<void> _fetchBookingDetails() async {
     final dio = Dio();
-    final String apiUrl = 'http://127.0.0.1:8000/car/api/listcarbooking/${widget.bookingId}/';
+    final String apiUrl = 'https://jpowered.pythonanywhere.com/car/api/listcarbooking/${widget.bookingId}/';
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -65,7 +65,7 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
 
   Future<void> _confirmBooking(BuildContext context) async {
     final dio = Dio();
-    final String apiUrl = 'http://127.0.0.1:8000/car/api/orders/';
+    final String apiUrl = 'https://jpowered.pythonanywhere.com/car/api/orders/';
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -108,7 +108,7 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
     } catch (e) {
       print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred while confirming booking.')),
+        SnackBar(content: Text('fund wallet or insufficient fund.')),
       );
     }
   }

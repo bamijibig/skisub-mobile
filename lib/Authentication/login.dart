@@ -184,7 +184,7 @@ class _HomescreenState extends State<Homescreen> {
     try {
       final dio = Dio();
       final response = await dio.post(
-        'http://127.0.0.1:8000/account/login/',
+        'https://jpowered.pythonanywhere.com/account/login/',
         data: loginPayload,
         options: Options(
           headers: {
@@ -220,18 +220,20 @@ class _HomescreenState extends State<Homescreen> {
       } else if (error.response != null && error.response!.statusCode == 400) {
         // Handle validation errors
         final errorMessage = error.response!.data['detail'] ??
-            'Invalid login details. Please try again.';
+            'Invalid Password, use alphanumeric only';
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage)),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Unable to log in. Please try again later.')),
+          // SnackBar(content: Text('Unable to log in. Please try again later.')),
+          SnackBar(content: Text('Invalid Password, use alphanumeric only')),
+           
         );
       }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An unexpected error occurred.')),
+        SnackBar(content: Text('Invalid Password, use alphanumeric only')),
       );
     } finally {
       setState(() {

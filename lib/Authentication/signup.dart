@@ -176,8 +176,15 @@ class _SignupPageState extends State<SignupPage> {
         if (isEmail && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
           return 'Please enter a valid email';
         }
+        // if (isPassword && value.length < 8) {
+        //   return 'Password must be at least 8 characters';
+        // }
+        // Check if the password is at least 8 characters
         if (isPassword && value.length < 8) {
-          return 'Password must be at least 8 characters';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Password must be at least 8 characters')),
+          );
+          
         }
         if (hint == 'Confirm Password' && value != _passwordController.text) {
           return 'Passwords do not match';
@@ -194,6 +201,14 @@ class _SignupPageState extends State<SignupPage> {
     final phoneNumber = _phoneNumberController.text.trim();
     final password = _passwordController.text;
     final confirmPassword = _confirmPasswordController.text;
+
+
+    if (fullName.split(' ').length < 2) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Please enter your full name (first name and last name)')),
+    );
+    return;
+  }
 
     if (password != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -224,7 +239,7 @@ class _SignupPageState extends State<SignupPage> {
 
     try {
       final response = await Dio().post(
-        'http://127.0.0.1:8000/account/signup/',
+        'https://jpowered.pythonanywhere.com/account/signup/',
         data: user.toJson(),
         options: Options(
           headers: {

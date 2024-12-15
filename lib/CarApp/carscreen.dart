@@ -33,7 +33,7 @@ class _CarBookingPageState extends State<CarBookingPage> {
       });
 
       final response = await dio.get(
-        'http://127.0.0.1:8000/car/api/cars/',
+        'https://jpowered.pythonanywhere.com/car/api/cars/',
         queryParameters: {
           if (keyword != null) 'search': keyword,
           if (category != null) 'category': category,

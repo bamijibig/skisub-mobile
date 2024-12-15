@@ -8,7 +8,7 @@ import 'package:skisubapp/CarApp/BookingPreviewPage.dart';
 
 class CarBookServices {
   final String apiUrl =
-      'http://127.0.0.1:8000/car/api/bookings/';
+      'https://jpowered.pythonanywhere.com/car/api/bookings/';
 
   // Format time to HH:mm
   String formatTime(String time) {
@@ -127,12 +127,12 @@ class CarBookServices {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('An error occurred.')),
+          SnackBar(content: Text('please fund wallet, insufficient fund')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An unexpected error occurred.')),
+        SnackBar(content: Text('please fund wallet, insufficient fund')),
       );
     }
   }

@@ -27,7 +27,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
     final dio = Dio();
     try {
       final response = await dio.get(
-        'http://127.0.0.1:8000/hotelad/api/hotels/',
+        'https://jpowered.pythonanywhere.com/hotelad/api/hotels/',
         options: Options(
           headers: {'content-type': 'application/json'},
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:skisubapp/Authentication/RessetPasswordPage.dart.dart';
+import 'package:skisubapp/Authentication/login.dart';
 
 
 
@@ -19,49 +20,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return regex.hasMatch(email);
   }
 
-  // Future<void> sendPasswordResetEmail(String email) async {
-  //   final Dio dio = Dio();
-  //   const String endpoint = "https://skissub.pythonanywhere.com/account/forgot-password/";
-
-  //   try {
-  //     Response response = await dio.post(
-  //       endpoint,
-  //       data: {
-  //         "email": email,
-  //       },
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Password reset email sent successfully.")),
-  //       );
-
-  //       // Navigate to the Reset Password Page immediately
-  //       Navigator.of(context).push(
-  //         MaterialPageRoute(
-  //           builder: (context) => ResetPasswordPage(uid: '', token: '',), // No parameters needed
-  //         ),
-  //       );
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Failed to send reset email: ${response.data}")),
-  //       );
-  //     }
-  //   } on DioError catch (e) {
-  //     if (e.response != null) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Error: ${e.response?.data['detail'] ?? e.response?.data}")),
-  //       );
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Connection error: ${e.message}")),
-  //       );
-  //     }
-  //   }
-  // }
+ 
 Future<void> sendPasswordResetRequest(String email) async {
   final Dio dio = Dio();
-  const String endpoint = "http://127.0.0.1:8000/account/forgot-password/";
+  const String endpoint = "https://jpowered.pythonanywhere.com/account/forgot-password/";
 
   try {
     Response response = await dio.post(
@@ -121,41 +83,24 @@ void _submit() async {
 }
 
 
-  // void _submit() async {
-  //   final email = _emailController.text.trim();
-
-  //   // Validate the email format
-  //   if (email.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text("Please enter your email")),
-  //     );
-  //     return;
-  //   }
-
-  //   if (!isValidEmail(email)) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text("Please enter a valid email address")),
-  //     );
-  //     return;
-  //   }
-
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-
-  //   try {
-  //     // await sendPasswordResetEmail(email);
-  //   } finally {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Forgot Password")),
+      appBar: AppBar(title: Text("Forgot Password"),
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            // Navigate to a specific screen (e.g., HomeScreen)
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Homescreen()),
+            );
+          },
+        ),
+      ),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -179,8 +124,18 @@ void _submit() async {
                 ? Center(child: CircularProgressIndicator())
                 : ElevatedButton(
                     onPressed: _submit,
-                    child: Text("Send Reset Email"),
-                  ),
+                    child: Text("Send Reset Email",
+                    style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        ),),
+                        style: ElevatedButton.styleFrom(
+                          
+                          backgroundColor: Color.fromRGBO(16, 0, 199, 1),
+                          minimumSize: Size(double.infinity, 50),
+                        ),),
+                  
+                  
           ],
         ),
       ),

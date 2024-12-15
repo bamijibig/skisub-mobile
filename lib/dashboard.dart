@@ -60,27 +60,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
       });
     }
   }
-
+    Future<bool> _onWillPop() async {
+    // Prevent back navigation by returning false
+    return false;
+  }
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _buildHeader(),
-                    SizedBox(height: 15),
-                    _buildQuickActions(context),
-                    SizedBox(height: 15),
-                    _buildRecentActivity(),
-                  ],
+    return WillPopScope
+    (
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildHeader(),
+                      SizedBox(height: 15),
+                      _buildQuickActions(context),
+                      SizedBox(height: 15),
+                      _buildRecentActivity(),
+                    ],
+                  ),
                 ),
               ),
-            ),
+      ),
     );
   }
 
