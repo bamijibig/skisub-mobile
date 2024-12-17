@@ -23,7 +23,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
  
 Future<void> sendPasswordResetRequest(String email) async {
   final Dio dio = Dio();
-  const String endpoint = "https://jpowered.pythonanywhere.com/account/forgot-password/";
+  const String endpoint = "http://127.0.0.1:8000/account/forgot-password/";
 
   try {
     Response response = await dio.post(

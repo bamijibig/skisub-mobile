@@ -86,7 +86,7 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
     };
 
     final dio = Dio();
-    final String apiUrl = 'https://jpowered.pythonanywhere.com/hotelad/api/hotelbooking/';
+    final String apiUrl = 'http://127.0.0.1:8000/hotelad/api/hotelbooking/';
 
     try {
       final response = await dio.post(
@@ -151,6 +151,11 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context); })),
       body: SingleChildScrollView(
         child: Stack(
           children: [

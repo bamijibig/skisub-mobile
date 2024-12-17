@@ -8,9 +8,9 @@ import 'package:skisubapp/model/transaction.dart';
 class TransactionService {
   final Dio _dio = Dio();
   final String signupApiUrl =
-      'https://jpowered.pythonanywhere.com/account/userdetail/';
+      'http://127.0.0.1:8000/account/userdetail/';
   final String transactionApiUrl =
-      'https://jpowered.pythonanywhere.com/account/combinedorder/';
+      'http://127.0.0.1:8000/account/combinedorder/';
 
   Future<SignupUser?> fetchUserDetails() async {
     try {

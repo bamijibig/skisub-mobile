@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:skisubapp/CarApp/car.dart';
 import 'package:skisubapp/CarApp/cardetail.dart';
 
@@ -33,7 +34,7 @@ class _CarBookingPageState extends State<CarBookingPage> {
       });
 
       final response = await dio.get(
-        'https://jpowered.pythonanywhere.com/car/api/cars/',
+        'http://127.0.0.1:8000/car/api/cars/',
         queryParameters: {
           if (keyword != null) 'search': keyword,
           if (category != null) 'category': category,
@@ -210,6 +211,12 @@ class _CarBookingPageState extends State<CarBookingPage> {
 
   @override
   Widget build(BuildContext context) {
+      // Create a NumberFormat instance
+  final NumberFormat currencyFormat = NumberFormat.currency(
+    locale: 'en_NG', // Nigerian locale
+    symbol: '₦', // Currency symbol for Naira
+    decimalDigits: 0, // You can adjust this to show decimal points if needed
+  );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -300,6 +307,11 @@ class _CarBookingPageState extends State<CarBookingPage> {
                           itemCount: cars.length,
                           itemBuilder: (context, index) {
                             final car = cars[index];
+                            
+                            final double pricePerDay = double.tryParse(car.pricePerDay) ?? 0;
+                            final formattedPrice = currencyFormat.format(pricePerDay);
+
+
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -315,7 +327,9 @@ class _CarBookingPageState extends State<CarBookingPage> {
                                 image: car.images.first,
                                 name: '${car.make} ${car.name}',
                                 year: 'Year: ${car.year}',
-                                price: '${car.pricePerDay} NGN / Day',
+                                // price: '${car.pricePerDay} NGN / Day',
+                                price: '$formattedPrice NGN / Day',
+                                
                               ),
                               
                               

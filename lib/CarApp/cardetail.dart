@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:intl/intl.dart';
 import 'package:skisubapp/CarApp/car.dart'; // Import your Car model
 import 'package:skisubapp/CarApp/carbooking.dart'; // Import your Booking Page
 
@@ -10,6 +11,13 @@ class CarDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+    locale: 'en_NG', // Nigerian locale
+    symbol: '₦', // Currency symbol for Naira
+    decimalDigits: 0, // You can adjust this to show decimal points if needed
+  );
+    final double pricePerDay = double.tryParse(car.pricePerDay) ?? 0;
+    final formattedPrice = currencyFormat.format(pricePerDay);
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.transparent,
@@ -69,7 +77,9 @@ class CarDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 5,),
                 Text(
-                '${car.pricePerDay} NGN / Day',
+                // '${car.pricePerDay} NGN / Day',
+                '${formattedPrice} NGN / Day',
+                // '${currencyFormat.format(car.pricePerDay)}',
                 style: TextStyle(fontSize: 16, color: Color.fromRGBO(16,0,199,1), fontWeight: FontWeight.bold),
               ),
                   Image.asset(

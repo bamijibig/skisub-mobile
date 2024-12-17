@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:skisubapp/HotelApp/HotelRoomBooking.dart';
 import 'package:skisubapp/HotelApp/hotel.dart';
 
@@ -9,6 +10,11 @@ class HotelRoomDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+    locale: 'en_NG', // Nigerian locale
+    symbol: '₦', // Currency symbol for Naira
+    decimalDigits: 0, // You can adjust this to show decimal points if needed
+  );
     return Scaffold(
       appBar: AppBar(
         title: Text('Hotel Details'),
@@ -67,6 +73,8 @@ class HotelRoomDetailsScreen extends StatelessWidget {
                     itemCount: hotel.roomTypes.length,
                     itemBuilder: (context, index) {
                       final roomType = hotel.roomTypes[index];
+                      
+                      
 
                       return Container(
                         margin: EdgeInsets.symmetric(vertical: 8),
@@ -105,7 +113,8 @@ class HotelRoomDetailsScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 4),
                                   Text(
-                                    'NGN ${roomType.pricePerDay.toStringAsFixed(2)} /Night',
+                                    // 'NGN ${roomType.pricePerDay.toStringAsFixed(2)} /Night',
+                                    '${currencyFormat.format(roomType.pricePerDay)} per day',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.grey[600],

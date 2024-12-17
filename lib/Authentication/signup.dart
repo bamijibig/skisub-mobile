@@ -239,7 +239,7 @@ class _SignupPageState extends State<SignupPage> {
 
     try {
       final response = await Dio().post(
-        'https://jpowered.pythonanywhere.com/account/signup/',
+        'http://127.0.0.1:8000/account/signup/',
         data: user.toJson(),
         options: Options(
           headers: {

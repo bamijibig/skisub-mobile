@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skisubapp/CarApp/BookingCompletePage.dart';
 
@@ -25,7 +26,7 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
 
   Future<void> _fetchBookingDetails() async {
     final dio = Dio();
-    final String apiUrl = 'https://jpowered.pythonanywhere.com/car/api/listcarbooking/${widget.bookingId}/';
+    final String apiUrl = 'http://127.0.0.1:8000/car/api/listcarbooking/${widget.bookingId}/';
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -65,7 +66,7 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
 
   Future<void> _confirmBooking(BuildContext context) async {
     final dio = Dio();
-    final String apiUrl = 'https://jpowered.pythonanywhere.com/car/api/orders/';
+    final String apiUrl = 'http://127.0.0.1:8000/car/api/orders/';
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -115,10 +116,18 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+    locale: 'en_NG', // Nigerian locale
+    symbol: '₦', // Currency symbol for Naira
+    decimalDigits: 0, // You can adjust this to show decimal points if needed
+  );
+    final double pricePerDay = double.tryParse(bookingData!['total_amount']) ?? 0;
+    final formattedPrice = currencyFormat.format(pricePerDay);
     return Scaffold(
       appBar: AppBar(
         title: Text('Car Rentals'),
       ),
+      
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : bookingData == null
@@ -170,8 +179,11 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
                       ),
                       SizedBox(height: 16),
                       _buildInfoCard(
+                        
                         title: 'Amount',
-                        value: 'NGN ${bookingData!['total_amount']}',
+                        // value: 'NGN ${bookingData!['total_amount']}',
+                        
+                        value: formattedPrice,
                         icon: Icons.monetization_on,
                       ),
                       Spacer(),
@@ -197,6 +209,7 @@ class _BookingPreviewPageState extends State<BookingPreviewPage> {
   }
 
   Widget _buildInfoCard({required String title, required String value, IconData? icon}) {
+    
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:skisubapp/HotelApp/hotel.dart';
 import 'package:skisubapp/HotelApp/hoteldetailscreen.dart';
 
@@ -27,7 +28,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
     final dio = Dio();
     try {
       final response = await dio.get(
-        'https://jpowered.pythonanywhere.com/hotelad/api/hotels/',
+        'http://127.0.0.1:8000/hotelad/api/hotels/',
         options: Options(
           headers: {'content-type': 'application/json'},
         ),
@@ -208,6 +209,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 242, 242, 1),
       appBar: AppBar(
@@ -291,6 +293,7 @@ class _HotelListScreenState extends State<HotelListScreen> {
                             filteredHotels.length,
                             (index) {
                               final hotel = filteredHotels[index];
+                              
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -331,6 +334,12 @@ class _HotelListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+    locale: 'en_NG', // Nigerian locale
+    symbol: '₦', // Currency symbol for Naira
+    decimalDigits: 0, // You can adjust this to show decimal points if needed
+  );
+    
     // Ensure pricePerDay is not null, default to 0.0 if it is
     double pricePerDay = hotel.roomTypes.isNotEmpty && hotel.roomTypes.first.pricePerDay != null
         ? hotel.roomTypes.first.pricePerDay!
@@ -385,7 +394,8 @@ class _HotelListItem extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '₦${pricePerDay.toStringAsFixed(2)} per day',
+                  // '₦${pricePerDay.toStringAsFixed(2)} per day',
+                  '${currencyFormat.format(pricePerDay)} per day',
                   style: TextStyle(color: Colors.green),
                 ),
               ],
